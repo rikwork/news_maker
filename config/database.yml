@@ -82,7 +82,7 @@ production:
   primary: &primary_production
     <<: *default
     database: news_maker_production
-    username: news_maker
+    username: myapp_user
     password: <%= ENV["NEWS_MAKER_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production

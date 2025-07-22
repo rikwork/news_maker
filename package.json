@@ -1,0 +1,12 @@
+{
+  "name": "news_maker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ggrikgg/news_maker.git",
+  "author": "Nikita Vasiliev <rikwork321@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "echo 'nothing to build'",
+"build:css": "no css"
+  }
+}

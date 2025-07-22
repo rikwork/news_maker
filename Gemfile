@@ -19,12 +19,19 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
+gem 'propshaft'
+# gem 'jsbundling-rails'
+# gem 'cssbundling-rails'
+
+# gem 'sprockets-rails'
+# gem 'sassc-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+gem 'dotenv-rails'
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "kamal", require: false
+# gem "kamal", require: false
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
@@ -34,6 +41,12 @@ gem "thruster", require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
+group :development do
+  gem "capistrano", "~> 3.17"
+  gem "capistrano-rails", "~> 1.6"
+  gem "capistrano-puma" # Или другой сервер, например, Puma
+  gem "capistrano-rbenv"
+end
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

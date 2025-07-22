@@ -32,3 +32,6 @@
 /config/master.key
 
 /config/credentials/production.key
+.env
+/config/puma.rb
+
