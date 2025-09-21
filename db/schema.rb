@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_24_034218) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_18_092000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_034218) do
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "theme"
+    t.string "telegram_chat_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_channels_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -85,8 +89,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_034218) do
     t.bigint "source_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "draft", null: false
+    t.string "original_url"
+    t.string "language", default: "ru"
+    t.string "ai_model"
+    t.datetime "publish_at"
+    t.datetime "published_at"
     t.index ["channel_id"], name: "index_posts_on_channel_id"
     t.index ["source_id"], name: "index_posts_on_source_id"
+    t.index ["status"], name: "index_posts_on_status"
   end
 
   create_table "sources", force: :cascade do |t|
@@ -98,8 +109,38 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_034218) do
     t.index ["channel_id"], name: "index_sources_on_channel_id"
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "status", default: "inactive", null: false
+    t.string "provider"
+    t.string "external_id"
+    t.datetime "current_period_end_at"
+    t.string "plan"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "status"], name: "index_subscriptions_on_user_id_and_status"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "api_token"
+    t.index ["api_token"], name: "index_users_on_api_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "channels", "users"
   add_foreign_key "posts", "channels"
   add_foreign_key "sources", "channels"
+  add_foreign_key "subscriptions", "users"
 end

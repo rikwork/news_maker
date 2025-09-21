@@ -31,6 +31,15 @@ gem 'devise'
 
 # фоновые задачи
 gem 'sidekiq'
+# планировщик задач для Sidekiq
+gem 'sidekiq-cron'
+# HTTP-клиент для интеграций
+gem 'httparty'
+# Telegram бот SDK
+gem 'telegram-bot-ruby'
+# CORS для API
+gem 'rack-cors'
+
 gem 'sassc-rails'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]

@@ -1,0 +1,4 @@
+generate_drafts:
+  cron: "*/30 * * * *"
+  class: "GenerateDraftPostsJob"
+  queue: default 
